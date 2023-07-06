@@ -11,4 +11,8 @@ router.get('/forms', function(req, res, next) {
     res.sendFile(path.join(__dirname, '/pages/forms.json'));
 });
 
+router.get('/forms', function(req, res, next) {
+    res.sendFile(path.join(__dirname, '/pages/forms.json'));
+});
+
 module.exports = router;
