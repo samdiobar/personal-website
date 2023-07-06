@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript" src="/form/forms"></script>
+</head>
+<body>
+
+    <div id="generated-content"></div>
+
+    <script type="module">
+
+        import pre_existing_content from './form/forms' assert { type: 'json' };
+
+        const parentElement = document.getElementById("generated-content")
+        for (let element of pre_existing_content) {
+            var type = element.type;
+            if (type == "title") {
+                const childElement = document.createElement('h1');
+                var appendChildElement = parentElement.appendChild(childElement);
+                appendChildElement.innerHTML = element.text;
+            } else if (type == "text") {
+                const childElement = document.createElement('div');
+                var appendChildElement = parentElement.appendChild(childElement);
+                appendChildElement.innerHTML = element.text;
+            } else if (type == "image") {
+                const childElement = document.createElement('image', {src: "./images/test-image.jpg"});
+                // TRYING TO GET THIS IMAGE TO DISPLAY
+                var appendChildElement = parentElement.appendChild(childElement);
+                appendChildElement.innerHTML = element.text;
+            }
+        }
+        
+    </script>
+
+    <image src="./images/test-image.jpg"></image>
+
+    <select id="new-blog-element" name="new-blog-element">
+        <option value="text">Text</option>
+        <option value="image">Image</option>
+        <option value="hyperlink">Link</option>
+    </select>
+    <button onclick="myFunction()">Click me</button>
+
+    <p id="demo"></p>
+
+    <script>
+        function myFunction() {
+            document.getElementById("demo").innerHTML = document.getElementById("new-blog-element").value;
+        }
+    </script>
+
+</body>
+</html>
