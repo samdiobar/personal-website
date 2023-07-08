@@ -1,6 +1,8 @@
 // required external modules
 const express = require('express');
 const path = require("path");
+const bodyParser = require('body-parser')
+const jsonParser = bodyParser.json();
 
 // app variables
 var app = express();
@@ -10,6 +12,7 @@ const new_form_router = require('./routes/new-blog-form');
 
 // static files
 app.use(express.static('public'));
+app.use(jsonParser);
 
 // routes
 app.use('/', home_router);

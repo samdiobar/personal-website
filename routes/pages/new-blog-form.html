@@ -14,13 +14,27 @@
             background-color: #eebbbb;
         }
     </style>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        async function getForms(url) {
+            const response = await axios.get(url);
+            return response.data;
+        }
+        async function postForms(url, data) {
+            const response = await axios.post(url, data);
+            return response;
+        }
+    </script>
 </head>
 <body>
 
     <div id="generated-content"></div>
 
     <script type="module">
-        import pre_existing_content from './form/forms' assert { type: 'json' };
+        var pre_existing_content = await getForms("http://localhost:3000/form/forms");
+
+        var result = await postForms("http://localhost:3000/form/test", pre_existing_content);
+        console.log(result);
 
         const parentElement = document.getElementById("generated-content")
         for (let element of pre_existing_content) {
@@ -47,6 +61,7 @@
     <script>
         function myFunction() {
             document.getElementById("demo").innerHTML = document.getElementById("new-blog-element").value;
+            console.log(pre_existing_content);
         }
     </script>
 
