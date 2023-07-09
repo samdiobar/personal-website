@@ -31,7 +31,7 @@
     <div id="generated-content"></div>
 
     <script type="module">
-        var pre_existing_content = await getForms("http://localhost:3000/form/forms");
+        const pre_existing_content = await getForms("http://localhost:3000/form/forms");
 
         var result = await postForms("http://localhost:3000/form/test", pre_existing_content);
         console.log(result);
@@ -51,6 +51,7 @@
     
     <select id="new-blog-element" name="new-blog-element">
         <option value="text">Text</option>
+        <option value="title">Title</option>
         <option value="image">Image</option>
         <option value="hyperlink">Link</option>
     </select>
@@ -59,9 +60,30 @@
     <p id="demo"></p>
 
     <script>
-        function myFunction() {
+        async function myFunction() {
             document.getElementById("demo").innerHTML = document.getElementById("new-blog-element").value;
-            console.log(pre_existing_content);
+
+            var new_element = {
+                "type": document.getElementById("new-blog-element").value,
+                "text": "Test text for now"
+            }
+
+            if (new_element.type == "title") {
+                new_element.tag = "h1";
+            } else if (new_element.type == "text") {
+                new_element.tag = "div";
+            } else if (new_element.type == "image") {
+                new_element.tag = "img";
+            }
+
+            console.log(new_element);
+
+            const pre_existing_content = await getForms("http://localhost:3000/form/forms");
+
+            pre_existing_content.push(new_element);
+
+            var result = await postForms("http://localhost:3000/form/test", pre_existing_content);
+            console.log(result);
         }
     </script>
 

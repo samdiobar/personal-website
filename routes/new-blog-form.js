@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const path = require('path');
+const fs = require('fs');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -12,8 +13,11 @@ router.get('/forms', function(req, res, next) {
 });
 
 router.post('/test', function(req, res) {
-    var data = req.body;
-    res.send("Data Received: " + JSON.stringify(data));
+    var data = JSON.stringify(req.body);
+
+    fs.writeFileSync(path.join(__dirname, '/pages/forms.json'), data);
+
+    res.send("Data Received: " + data);
 });
 
 module.exports = router;
