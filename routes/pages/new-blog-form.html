@@ -4,14 +4,21 @@
     <meta charset="UTF-8">
     <title>Blog Maker</title>
     <style>
-        div {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
+        #generated-content {
+            margin: auto;
         }
         .blog-element {
-            width: 50%;
+            margin: auto auto 10px;
+            padding: 8px;
+
+            display: flex;
+            flex-direction: column;
+            width: 65%;
+            gap: 10%;
+
             background-color: #eebbbb;
+            border-style: solid;
+            border-radius: 10px;
         }
     </style>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -39,13 +46,15 @@
         const parentElement = document.getElementById("generated-content")
         for (let element of pre_existing_content) {
             var type = element.type;
-            const childElement = document.createElement(element.tag);
-            childElement.classList.add("blog-element");
-            const appendChildElement = parentElement.appendChild(childElement);
+            var div = document.createElement("div");
+            const content_tag = document.createElement(element.tag);
+            div.classList.add("blog-element");
+            div.appendChild(content_tag);
+            const appendChildElement = parentElement.appendChild(div);
             if (type == "title" || type == "text")
-                appendChildElement.innerHTML = element.text;
+                content_tag.innerHTML = element.text;
             else if (type == "image")
-                appendChildElement.src = element.image_link;
+                content_tag.src = element.image_link;
         }
     </script>
     

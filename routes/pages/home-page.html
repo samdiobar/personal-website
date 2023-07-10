@@ -3,10 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Samuel Barroso</title>
+    <style>
+        .blog-element {
+            padding: 8px;
+
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+
+            width: 50%;
+            background-color: #eebbbb;
+            border-style: solid;
+            border-radius: 10px;
+        }
+        #edit-button {
+            float: right;
+            background-color: #bdbdbd;
+            border-style: solid;
+            border-radius: 10px;
+        }
+    </style>
 </head>
 <body>
     <h1>Home Page!</h1>
     <a href="/form">New Form Page</a>
+    <div class="blog-element">
+        <div>
+            <span>sample content</span>
+            <button type="button" id="edit-button">Edit</button>
+        </div>
+    </div>
 </body>
 </html>
