@@ -2,10 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Samuel Barroso</title>
     <style>
-        .blog-element {
+        .blog-element{
             padding: 8px;
 
             display: flex;
@@ -13,9 +12,20 @@
             gap: 30px;
 
             width: 50%;
-            background-color: #eebbbb;
             border-style: solid;
             border-radius: 10px;
+        }
+        .red {
+            background-color: #eebbbb;
+        }
+        .blue {
+            background-color: #d2bbee;
+        }
+        .green {
+            background-color: #bdeebb;
+        }
+        .dragging {
+            background-color: darkgray;
         }
         #edit-button {
             float: right;
@@ -24,14 +34,100 @@
             border-radius: 10px;
         }
     </style>
+    <script>
+        function isBlogElement(index) {
+            if (index > -1) return true;
+            else return false;
+        }
+
+        window.addEventListener("load", function(event) {
+
+            var draggableElements = document.getElementsByClassName("blog-element");
+
+            var isDragging = false;
+            var dragStartElementID = null;
+            var lastDragOverElementID = null;
+
+            for (var i = 0; i < draggableElements.length; i++) {
+                
+                draggableElements[i].addEventListener("dragstart", (ev) => {
+
+                    dragStartElementID = ev.srcElement.id;
+                    
+                    isDragging = true;
+
+                    ev.currentTarget.classList.add("dragging");
+                    ev.dataTransfer.clearData();
+                    ev.dataTransfer.setData("text/plain", ev.target.id);
+                });
+
+                draggableElements[i].addEventListener("dragend", (ev) => {
+                    ev.target.classList.remove("dragging");
+                    isDragging = false;
+                });
+
+                draggableElements[i].addEventListener("dragover", (ev) => {
+
+                    var parentElementFound = false;
+                    var tempChildElement = ev.srcElement;
+                    while (!parentElementFound) {
+                        if (tempChildElement.id.indexOf("element") > -1)
+                            parentElementFound = true;
+                        else
+                            tempChildElement = tempChildElement.parentElement;
+                    }
+
+                    lastDragOverElementID = tempChildElement.id;
+
+                    ev.preventDefault();
+                });
+
+                draggableElements[i].addEventListener("drop", (ev) => {
+
+                    if (lastDragOverElementID != dragStartElementID) {
+                        //START HERE
+                        //code for divs to switch places
+
+                        var allContent = document.querySelector("#content-list").children;
+
+                    }
+
+                    ev.preventDefault();
+                    // Get the data, which is the id of the source element
+                    //const data = ev.dataTransfer.getData("text");
+                    //const source = document.getElementById(data);
+                    //ev.target.appendChild(source);
+                });
+
+                //const reset = document.querySelector("#reset");
+                //reset.addEventListener("click", () => document.location.reload());
+
+            }
+
+        });
+    </script>
 </head>
 <body>
     <h1>Home Page!</h1>
     <a href="/form">New Form Page</a>
-    <div class="blog-element">
-        <div>
-            <span>sample content</span>
-            <button type="button" id="edit-button">Edit</button>
+    <div id="content-list">
+        <div id="element-0" class="blog-element red" draggable="true">
+            <div>
+                <span>sample content</span>
+                <button type="button" id="edit-button">Edit</button>
+            </div>
+        </div>
+        <div id="element-1" class="blog-element blue" draggable="true">
+            <div>
+                <span>sample content</span>
+                <button type="button" id="edit-button">Edit</button>
+            </div>
+        </div>
+        <div id="element-2" class="blog-element green" draggable="true">
+            <div>
+                <span>sample content</span>
+                <button type="button" id="edit-button">Edit</button>
+            </div>
         </div>
     </div>
 </body>
